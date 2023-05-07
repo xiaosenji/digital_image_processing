@@ -7,7 +7,8 @@ lower_blue = np.array([100, 43, 46])
 upper_blue = np.array([124, 255, 255])
 
 # 读取图像文件
-img = cv2.imread('car.jpg')
+img = cv2.imread('car1.jpg')
+#tesseract ocr库对于中文识别效果很差，即对car.jpg识别错误，但对于纯英文和数字的车牌识别率还可以，即对car1.jpg效果尚可
 
 # 转换为HSV颜色空间
 hsv = cv2.cvtColor(img, cv2.COLOR_BGR2HSV)
@@ -47,7 +48,7 @@ gray_plate = cv2.cvtColor(plate, cv2.COLOR_BGR2GRAY)
 ret, thresh = cv2.threshold(gray_plate, 0, 255, cv2.THRESH_BINARY_INV + cv2.THRESH_OTSU)
 
 # 使用Tesseract OCR库将车牌区域中的文字转换为文本
-text = pytesseract.image_to_string(thresh, lang='chi_sim', config='--psm 7')
+text = pytesseract.image_to_string(thresh, lang='eng', config='--psm 7')
 print('License Plate: ' + text)
 
 # 显示车牌图像
